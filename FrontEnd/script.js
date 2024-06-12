@@ -6,7 +6,7 @@ const categoriesEndpoint = 'http://localhost:5678/api/categories';
 const loginEndpoint = 'http://localhost:5678/api/users/login';
 
 // Fonction asynchrone pour gérer la connexion de l'utilisateur
-async function loginUser(username, password) {
+async function loginUser (username, password) {
     try {
         const response = await fetch(loginEndpoint, {
             method: 'POST',
@@ -92,6 +92,58 @@ function renderCategories(categories) {
     });
 }
 
+function createOverlay() {
+    const overlay = document.createElement('div');
+    overlay.id = 'overlay';
+    overlay.style.display = 'none';
+
+    const overlayContent = document.createElement('div');
+    overlayContent.id = 'overlayContent';
+
+    const closeOverlayButton = document.createElement('button');
+    closeOverlayButton.type = 'button';
+    closeOverlayButton.id = 'closeOverlay';
+    closeOverlayButton.innerHTML = '<i class="fa-solid fa-x"></i>';
+    closeOverlayButton.addEventListener('click', () => {
+        overlay.style.display = 'none';
+    });
+
+    const h2 = document.createElement('h2');
+    h2.textContent = 'Galerie Photo';
+
+    const hr = document.createElement('hr');
+
+    const cardsContainer = document.createElement('div');
+    cardsContainer.id = 'cardsContainer';
+
+    const addPhotoButton = document.createElement('button');
+    addPhotoButton.type = 'button';
+    addPhotoButton.id = 'addPhotoButton';
+    addPhotoButton.textContent = 'Ajouter Une Photo';
+
+    overlayContent.appendChild(closeOverlayButton);
+    overlayContent.appendChild(h2);
+    overlayContent.appendChild(hr);
+    overlayContent.appendChild(cardsContainer);
+    overlayContent.appendChild(addPhotoButton);
+
+    overlay.appendChild(overlayContent);
+    document.body.appendChild(overlay);
+
+    fetchCategoriesAndPopulateSelect();
+}
+
+async function fetchCategoriesAndPopulateSelect() {
+    try {
+        const response = await fetch(categoriesEndpoint);
+        const categories = await response.json();
+        populateSelect(categories);
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+    }
+}
+
+
 // Fonction pour filtrer les travaux par catégorie
 function filterWorks(categoryId) {
     // supprimer toutes les .hide
@@ -104,13 +156,15 @@ function filterWorks(categoryId) {
             }
             renderWorks(works);
         })
-        .catch(error => console.error('Erreur lors du filtrage des travaux :', error));
+        .catch(error => console.error('Erreur lors du filtrage :', error));
 }
 
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchWorks();
     fetchCategories();
+
+    
 
     const loginSection = document.getElementById('loginOverlay');
     const loginButton = document.getElementById("loginButton");
@@ -143,7 +197,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const isSuccess = await loginUser(username, password);
 
-        if (isSuccess) {
+        if (isSuccess) {   
+
+            document.querySelectorAll('main > section').forEach(element => {
+                element.style.display = '';
+            });
+
             loginSection.style.display = 'none';
             showPageElements();
             activateEditMode();
@@ -163,47 +222,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     async function activateEditMode() {
-        const editBanner = document.createElement('button'); // Modifier la création pour un bouton
+        // Creating edit mode buttons
+        const editBanner = document.createElement('button');
         const icon = document.createElement('i');
         editBanner.id = 'editBanner';
         editBanner.innerHTML = '<i class="fa-regular fa-pen-to-square"></i> Mode Édition';
         document.body.insertBefore(editBanner, document.body.firstChild);
-
-        const modifyButton = document.createElement('button'); // Modifier la création pour un bouton
+    
+        const modifyButton = document.createElement('button');
         modifyButton.id = 'modifyButton';
         icon.classList.add('fa-regular', 'fa-pen-to-square');
         modifyButton.appendChild(icon);
         modifyButton.appendChild(document.createTextNode(' Modifier'));
         document.getElementById('modifyButtonContainer').appendChild(modifyButton);
     
+        // Hiding filter container
         const filterContainer = document.getElementById('filter-container');
         filterContainer.style.display = 'none';
-
-        const overlay = document.getElementById('overlay');
-        overlay.style.display = 'flex';
-
+    
+        // Adding event listeners to edit mode buttons
         editBanner.addEventListener('click', function() {
-            document.getElementById('overlay').style.display = 'flex';
+            const overlay = document.getElementById('overlay');
+            overlay.style.display = 'flex';
         });
-
+    
         modifyButton.addEventListener('click', function() {
-            document.getElementById('overlay').style.display = 'flex';
+            const overlay = document.getElementById('overlay');
+            overlay.style.display = 'flex';
         });
-
+    
+        // Adding event listener to close overlay button
         document.getElementById('closeOverlay').addEventListener('click', function() {
             document.getElementById('overlay').style.display = 'none';
-        })
+        });
     
+        // Updating login button
         loginButton.textContent = 'logout';
         loginButton.classList.remove('bold');
-    
         loginButton.removeEventListener('click', showLoginOverlay);
         loginButton.addEventListener('click', logoutUser);
-        
+    
         try {
             const response = await fetch(worksEndpoint);
             const works = await response.json();
-            renderWorksInOverlay(works, overlay);
+            renderWorksInOverlay(works);
         } catch (error) {
             console.error('Erreur lors de la récupération des travaux pour l\'overlay :', error);
         }
@@ -211,13 +273,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const addPhotoButton = document.getElementById('addPhotoButton');
     const overlayContent = document.getElementById('overlayContent');
-    const closeButton = document.getElementById('closeOverlay');
+    const originalOverlayContent = overlayContent.innerHTML;
 
     addPhotoButton.addEventListener('click', () => {
         overlayContent.innerHTML = `
             <button type="button" id="backButton">Retour</button>
             <h2>Ajouter Une Photo</h2>
             <div id="dropArea">
+                <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
                 <p>Glissez vos photos ici</p>
             </div>
             <input type="text" id="photoTitle" placeholder="Titre de la photo">
@@ -234,12 +297,52 @@ document.addEventListener('DOMContentLoaded', () => {
     // Code pour gérer le retour au clic sur le bouton "Retour"
     const backButton = document.getElementById('backButton');
     backButton.addEventListener('click', () => {
-        overlayContent.innerHTML = ''; // Efface le contenu de l'overlay
-        overlay.style.display = 'none'; // Masque l'overlay
+        window.location.reload();
+        overlayContent.innerHTML = ''; 
     });
 
     // Code pour gérer le téléversement des photos
-    // ...
+    const uploadButton = document.getElementById('uploadButton');
+    uploadButton.addEventListener('click', async () => {
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+        fileInput.click();
+        
+        fileInput.addEventListener('change', async () => {
+            const file = fileInput.files[0];
+            const photoTitle = document.getElementById('photoTitle').value;
+            const categorySelect = document.getElementById('categorySelect');
+            const categoryId = categorySelect.value;
+
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('title', photoTitle);
+            formData.append('categoryId', categoryId);
+
+            try {
+                const authToken = localStorage.getItem('authToken');
+                const response = await fetch(worksEndpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`, // Ajoutez le jeton JWT si nécessaire
+                    },
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    const newWork = await response.json();
+                    console.log('Photo uploaded successfully:', newWork);
+                    window.location.reload(); // Refresh the page to reflect the newly uploaded photo
+                } else {
+                    console.error('Error uploading photo:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error uploading photo:', error);
+            }
+        });
+    });
+});
 });
     
     function createCardElement(work) {
@@ -306,5 +409,4 @@ document.addEventListener('DOMContentLoaded', () => {
     const authToken = localStorage.getItem('authToken');
     if (authToken) {
         activateEditMode();
-    }
-});
+    };

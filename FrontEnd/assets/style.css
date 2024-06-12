@@ -431,3 +431,40 @@ hr {
     cursor: pointer; /* Curseur de souris pour indiquer l'interactivité */
 	font-size: 10px;
 }
+
+#backButton {
+	padding: 0%;
+	cursor: pointer;
+	border: none;
+	background: none;
+	font-size: small;
+	justify-self: end;
+	align-self: end;
+}
+
+#dropArea {
+	background: #E8F1F6;
+	display: flex;
+	flex-direction: column;
+	margin-top: 2em;
+	margin-bottom: 2em;
+	justify-content: center;
+
+}
+
+#fileElem {
+	background: #E8F1F6;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	flex-wrap: wrap;
+	width: 100%;
+	height: 100%;
+	
+}
+
+p {
+	
+	display: flex;
+	justify-content: center;
+}
