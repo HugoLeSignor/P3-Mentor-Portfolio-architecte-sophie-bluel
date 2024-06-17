@@ -3,557 +3,636 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-	background: #FFFEF8;
-
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  background: #fffef8;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-	display: block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
 }
 body {
-	line-height: 1;
+  line-height: 1;
 }
-ol, ul {
-	list-style: none;
+ol,
+ul {
+  list-style: none;
 }
-blockquote, q {
-	quotes: none;
+blockquote,
+q {
+  quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 /** end reset css**/
 .container {
-	max-width: 1140px;
-	margin:auto;
-	font-family: 'Work Sans' ;
-	font-size: 14px;
+  max-width: 1140px;
+  margin: auto;
+  font-family: "Work Sans";
+  font-size: 14px;
 }
 
 header {
-	display: flex;
-	justify-content: space-between;
-	margin: 50px 0
+  display: flex;
+  justify-content: space-between;
+  margin: 50px 0;
 }
 section {
-	margin: 50px 0
+  margin: 50px 0;
 }
 
-h1{
-	display: flex;
-	flex-direction: column;
-	font-family: 'Syne';
-	font-size: 22px;
-	font-weight: 800;
-	color: #B1663C
+h1 {
+  display: flex;
+  flex-direction: column;
+  font-family: "Syne";
+  font-size: 22px;
+  font-weight: 800;
+  color: #b1663c;
 }
 
 h1 > span {
-	font-family: 'Work Sans';
-	font-size:10px;
-	letter-spacing: 0.1em;
+  font-family: "Work Sans";
+  font-size: 10px;
+  letter-spacing: 0.1em;
 }
 
-h2{
-	font-family: 'Syne';
-	font-weight: 700;
-	font-size: 30px;
-	color: #1D6154
+h2 {
+  font-family: "Syne";
+  font-weight: 700;
+  font-size: 30px;
+  color: #1d6154;
 }
 nav ul {
-	display: flex;
-	align-items: center;
-	list-style-type: none;
-
+  display: flex;
+  align-items: center;
+  list-style-type: none;
 }
 nav li {
-	padding: 0 10px;
-	font-size: 1.2em;
+  padding: 0 10px;
+  font-size: 1.2em;
 }
 
 li:hover {
-	color: #B1663C;
+  color: #b1663c;
 }
 #introduction {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 #introduction figure {
-	flex: 1
+  flex: 1;
 }
 #introduction img {
-	display: block;
-	margin: auto;
-	width: 80%;
+  display: block;
+  margin: auto;
+  width: 80%;
 }
 
 #introduction article {
-	flex: 1
+  flex: 1;
 }
 #introduction h2 {
-	margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 
 #introduction p {
-	margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .gallery {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
 }
 
 .gallery img {
-	width: 100%;
-
+  width: 100%;
 }
 #contact {
-	width: 50%;
-margin: auto;
+  width: 50%;
+  margin: auto;
 }
 #contact > * {
-	text-align: center;
-
+  text-align: center;
 }
-#contact h2{
-	margin-bottom: 20px;
+#contact h2 {
+  margin-bottom: 20px;
 }
 #contact form {
-	text-align: left;
-	margin-top:30px;
-	display: flex;
-	flex-direction: column;
+  text-align: left;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
 }
 
 #contact input {
-	height: 50px;
-	font-size: 1.2em;
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  height: 50px;
+  font-size: 1.2em;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 #contact label {
-	margin: 2em 0 1em 0;
+  margin: 2em 0 1em 0;
 }
 #contact textarea {
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
-	font-family: 'Syne';
-	font-weight: 700;
-	color: white;
-	background-color: #1D6154;
-	margin : 2em auto ;
-	width: 180px;
-	text-align: center;
-	border-radius: 60px ;
+input[type="submit"] {
+  font-family: "Syne";
+  font-weight: 700;
+  color: white;
+  background-color: #1d6154;
+  margin: 2em auto;
+  width: 180px;
+  text-align: center;
+  border-radius: 60px;
 }
 
 footer nav ul {
-	display: flex;
-	justify-content: flex-end;
-	margin: 2em
+  background-color: white;
+  display: flex;
+  justify-content: flex-end;
+  padding: 2em;
 }
 
 #filter-container button {
-	justify-content: space-between;
-	white-space: nowrap;
-    color: #1D6154; 
-	background-color: #FFFEF8;
-    border: solid 1px #1D6154; 
-    padding: 10px 20px; 
-    margin-right: 10px; 
-    border-radius: 2em; 
-	font-weight: bold;
-	font: inherit;
-	gap: 5em;
+  justify-content: space-between;
+  white-space: nowrap;
+  color: #1d6154;
+  background-color: #fffef8;
+  border: solid 1px #1d6154;
+  padding: 10px 20px;
+  margin-right: 10px;
+  border-radius: 2em;
+  font-weight: bold;
+  font: inherit;
+  gap: 5em;
 }
 
 #filter-container button:active {
-	background-color: #1D6154;
-	color: #FFFEF8;
-
+  background-color: #1d6154;
+  color: #fffef8;
 }
 
 #filter-container {
-	display: flex;
-	justify-content: center;
-	margin-bottom: 4em;
-	margin-top: 4em;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4em;
+  margin-top: 4em;
 }
 
 /* Style pour l'overlay de connexion */
 #loginOverlay {
-    display: none;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent pour l'overlay */
-    z-index: 9999; /* Assurez-vous que l'overlay est au-dessus de tous les autres éléments */
-    justify-content: center;
-    align-items: center;
+  display: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Fond semi-transparent pour l'overlay */
+  z-index: 9999; /* Assurez-vous que l'overlay est au-dessus de tous les autres éléments */
+  justify-content: center;
+  align-items: center;
 }
 
 #loginFormContainer {
-    padding: 20px;
-    position: relative; /* Position relative pour permettre le positionnement des éléments fils */
-    z-index: 10000; /* Assurez-vous que le formulaire est au-dessus de l'overlay */
+  padding: 20px;
+  position: relative; /* Position relative pour permettre le positionnement des éléments fils */
+  z-index: 10000; /* Assurez-vous que le formulaire est au-dessus de l'overlay */
 }
 
 #loginFormContainer h2 {
-	text-align: center;
-	margin-bottom: 2em;
+  text-align: center;
+  margin-bottom: 2em;
 }
-
 
 /* Style pour le formulaire de connexion */
 #loginForm {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 #loginForm label {
-    margin-bottom: 5px;
-	width: 35%;
-	align-self: center;
+  margin-bottom: 5px;
+  width: 35%;
+  align-self: center;
 }
 
 #loginForm input {
-    width: 33%;
-    padding: 15px;
-    margin-bottom: 10px;
-	align-self: center;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-	border: none;
+  width: 33%;
+  padding: 15px;
+  margin-bottom: 10px;
+  align-self: center;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  border: none;
 }
 
 #loginButton {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 #loginForm button {
-	margin-top: 2em;
-    padding: 10px 20px;
-	width: 15%;
-    background-color: #1D6154;
-    color: white;
-    border: none;
-    border-radius: 2em;
-    cursor: pointer;
-	align-self: center;
+  margin-top: 2em;
+  padding: 10px 20px;
+  width: 15%;
+  background-color: #1d6154;
+  color: white;
+  border: none;
+  border-radius: 2em;
+  cursor: pointer;
+  align-self: center;
 }
 
 a#forgotPassword {
-	align-self: center;
-	margin-top: 3em;
-	color: black;
+  align-self: center;
+  margin-top: 3em;
+  color: black;
 }
 
 .bold {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 body.overlay-open {
-    overflow: hidden; /* Empêche le défilement lorsque l'overlay est ouvert */
+  overflow: hidden; /* Empêche le défilement lorsque l'overlay est ouvert */
 }
 
 /* Assurez-vous que le logo et les éléments li restent visibles */
-header, nav ul {
-    position: relative;
+header,
+nav ul {
+  position: relative;
 }
 
 nav ul li a {
-	text-decoration: none;
-	color: inherit;
+
+  text-decoration: none;
+  color: inherit;
 }
 
 #editBanner {
-    background-color: #000;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-    font-size: 1.2em;
-	width: 100%;
-    border: none;
-    outline: none;
-    box-shadow: none;
-	cursor: pointer;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  font-size: 1.2em;
+  width: 100%;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
 }
 
 #modifyButtonContainer {
-    display: flex; /* Affiche le conteneur comme un élément en ligne avec flexbox */
-    align-items: center; /* Centre verticalement le contenu du conteneur */
-	justify-content: center;
-	margin-bottom: 1em;
+  display: flex; /* Affiche le conteneur comme un élément en ligne avec flexbox */
+  align-items: center; /* Centre verticalement le contenu du conteneur */
+  justify-content: center;
+  margin-bottom: 1em;
 }
 
 #modifyButton {
-	display: inline-flex;
-	align-items: center;
-	margin-left: 10px;
-	border: none;
-	background: none;
-	cursor: pointer;
-	
+  display: inline-flex;
+  align-items: center;
+  margin-left: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 #modifyButton i {
-	color: #000;
-	background: none;
-
+  color: #000;
+  background: none;
 }
 
-
 #editBanner i {
-	background: none;
+  background: none;
 }
 
 .overlay {
-    position: fixed; 
-    top: 0; 
-    left: 0;
-	right: 0;
-	bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); 
-    z-index: 1000; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .overlayContent {
-	display: flex;
-	flex-direction: column;
-    background-color: #fff;
-    padding: 3em;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 3em;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .overlayContent h2 {
-	font-weight: 100;
-	background-color: #fff;
-	font-family: 'Work Sans';
-	margin-bottom: 1em;
-	align-self: center;
-	color: #000;
-
+  font-weight: 100;
+  background-color: #fff;
+  font-family: "Work Sans";
+  margin-bottom: 1em;
+  align-self: center;
+  color: #000;
 }
 
 #addPhotoButton {
-	order: 2;
-	margin-top: 1em;
-	display: inline-flex;
-	flex-wrap: nowrap;
-	align-items: center;
-	justify-content: center;
-	border: none;
-	background-color: #1D6154;
-	color: #fff;
-	margin: 0 auto;
-	max-width: 100%;
-	border-radius: 2em;
-	padding: 1em;
-	cursor: pointer;
-	font-family: 'Syne';
+  order: 2;
+  margin-top: 1em;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: #1d6154;
+  color: #fff;
+  margin: 0 auto;
+  max-width: 100%;
+  border-radius: 2em;
+  padding: 1em;
+  cursor: pointer;
+  font-family: "Syne";
 }
 
 hr {
-	width: 100%;
+  width: 100%;
 }
 
-.backButton{
-	max-width: 49%;
-	float: left;
-	display: block;
-	padding: 0%;
-	cursor: pointer;
-	border: none;
-	background: none;
-	font-size: small;
-	justify-self: start;
-	align-self: start;
+.backButton {
+  max-width: 49%;
+  float: left;
+  display: block;
+  padding: 0%;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: small;
+  justify-self: start;
+  align-self: start;
 }
 
 .floatRight {
-	float: right;
-	max-width: 49%;
-	display: block;
+  float: right;
+  max-width: 49%;
+  display: block;
 }
 
 .floatContainer {
-	background-color: #fff;
+  background-color: #fff;
 }
 
 .floatContainer::after {
-	content: ' ';
-	clear: both;
+  content: " ";
+  clear: both;
 }
 
-.closeOverlay{
-	padding: 0%;
-	cursor: pointer;
-	border: none;
-	background: none;
-	font-size: small;
-	justify-self: end;
-	align-self: end;
+.closeOverlay {
+  padding: 0%;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: small;
+  justify-self: end;
+  align-self: end;
 }
 
 .card-holder {
-	flex: 0 1 20%;
-	margin-bottom: 20px;
-	position: relative;
+  flex: 0 1 20%;
+  margin-bottom: 20px;
+  position: relative;
 }
 
 .card {
-	position: relative;
-	margin: 0 auto;
-	width: min-content;
+  position: relative;
+  margin: 0 auto;
+  width: min-content;
 }
 
 .card img {
-	width: auto;
-	height: 100px;
+  width: auto;
+  height: 100px;
 }
 
 #cardsContainer {
-	background-color: #fff;
-	position: relative;
-    display: flex;
-	max-width: 450px;
-	margin: 0 auto;
-	flex-wrap: wrap;
-	width: 100%;
+  background-color: #fff;
+  position: relative;
+  display: flex;
+  max-width: 450px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .card i {
-	position: absolute; /* Positionne l'icône par rapport à la carte */
-    top: 4px;
-    right: 4px; /* Ajuste la position horizontale de l'icône */
-    padding: 4px; /* Ajoute un remplissage pour un meilleur aspect */
-    background-color: #000000; /* Couleur de fond de l'icône */
-	border-radius: 20%;
-    color: #fff; /* Couleur du texte de l'icône */
-    cursor: pointer; /* Curseur de souris pour indiquer l'interactivité */
-	font-size: 10px;
+  position: absolute; /* Positionne l'icône par rapport à la carte */
+  top: 4px;
+  right: 4px; /* Ajuste la position horizontale de l'icône */
+  padding: 4px; /* Ajoute un remplissage pour un meilleur aspect */
+  background-color: #000000; /* Couleur de fond de l'icône */
+  border-radius: 20%;
+  color: #fff; /* Couleur du texte de l'icône */
+  cursor: pointer; /* Curseur de souris pour indiquer l'interactivité */
+  font-size: 10px;
 }
 
 #dropArea {
-	background: #E8F1F6;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	margin-bottom: 10px;
-
+  background: #e8f1f6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
 #fileElem {
-
-	background: #E8F1F6;
-	
+  background: #e8f1f6;
 }
 
 #icon {
-	cursor: pointer;
-	margin-top: 15px;
-	display: flex;
-	background-color: #E8F1F6;
-	color: #B9C5CC;
-	font-size: 100px;
-	justify-content: center;
-	
+  cursor: pointer;
+  margin-top: 15px;
+  display: flex;
+  background-color: #e8f1f6;
+  color: #b9c5cc;
+  font-size: 100px;
+  justify-content: center;
 }
 
 #photodrag {
-	font-family: 'Work Sans';
-	margin-top: 5px;
-	margin-bottom: 15px;
-	background-color: #E8F1F6;
-	display: flex;
-	justify-content: center;
+  font-family: "Work Sans";
+  margin-top: 5px;
+  margin-bottom: 15px;
+  background-color: #e8f1f6;
+  display: flex;
+  justify-content: center;
 }
 
 #photoTitle {
-	padding: 10px;
-	border-style: none;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-	margin-bottom: 1em;
+  padding: 10px;
+  border-style: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin-bottom: 1em;
 }
 
 #categorySelect {
-	padding: 10px;
-	border-style: none;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-	margin-bottom: 10px;
+  padding: 10px;
+  border-style: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin-bottom: 10px;
 }
 
 #titleOverlay {
-	font-size: small;
-	font-weight: ;
-	font-family: 'Work Sans';
-	margin-bottom: 5px;
+  font-size: small;
+  font-weight: ;
+  font-family: "Work Sans";
+  margin-bottom: 5px;
 }
 
 h5 {
-	font-family: 'Work Sans';
-	cursor: pointer;
-	display: flex;
-	width: 50%;
-	border-radius: 2em;
-	padding: 10px;
-	justify-content: center;
-	background-color: #CBD6DC;
-	color: #306685;
-	margin: 0 auto;
+  font-family: "Work Sans";
+  cursor: pointer;
+  display: flex;
+  width: 50%;
+  border-radius: 2em;
+  padding: 10px;
+  justify-content: center;
+  background-color: #cbd6dc;
+  color: #306685;
+  margin: 0 auto;
 }
 
 #uploadButton {
-	margin-top: 1em;
-	display: inline-flex;
-	flex-wrap: nowrap;
-	align-items: center;
-	justify-content: center;
-	border: none;
-	background-color: #1D6154;
-	color: #fff;
-	margin-left: 4em;
-	margin-right: 4em;
-	max-width: 100%;
-	border-radius: 2em;
-	padding: 1em;
-	cursor: pointer;
-	font-family: 'Syne';
+  margin-top: 1em;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: #1d6154;
+  color: #fff;
+  margin-left: 4em;
+  margin-right: 4em;
+  max-width: 100%;
+  border-radius: 2em;
+  padding: 1em;
+  cursor: pointer;
+  font-family: "Syne";
+}
+
+#legal {
+	background-color: #fff;
+	font-family: 'Work Sans';
 }
