@@ -48,6 +48,7 @@ async function fetchCategories() {
         const response = await fetch(categoriesEndpoint);
         const categories = await response.json();
         renderCategories(categories);
+        populateSelect(categories);
     } catch (error) {
         console.error('Erreur lors de la récupération des catégories :', error);
     }
@@ -92,46 +93,20 @@ function renderCategories(categories) {
     });
 }
 
-function createOverlay() {
-    const overlay = document.createElement('div');
-    overlay.id = 'overlay';
-    overlay.style.display = 'none';
+function populateSelect(categories) {
+    const categoriesSelectBox = document.getElementById('categorySelect');
+    while(categoriesSelectBox.children.length > 1) {
+        categoriesSelectBox.removeChild(categoriesSelectBox.lastElementChild);
+    }
 
-    const overlayContent = document.createElement('div');
-    overlayContent.id = 'overlayContent';
-
-    const closeOverlayButton = document.createElement('button');
-    closeOverlayButton.type = 'button';
-    closeOverlayButton.id = 'closeOverlay';
-    closeOverlayButton.innerHTML = '<i class="fa-solid fa-x"></i>';
-    closeOverlayButton.addEventListener('click', () => {
-        overlay.style.display = 'none';
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category.id;
+        option.innerHTML = category.name;
+        categoriesSelectBox.appendChild(option);
     });
-
-    const h2 = document.createElement('h2');
-    h2.textContent = 'Galerie Photo';
-
-    const hr = document.createElement('hr');
-
-    const cardsContainer = document.createElement('div');
-    cardsContainer.id = 'cardsContainer';
-
-    const addPhotoButton = document.createElement('button');
-    addPhotoButton.type = 'button';
-    addPhotoButton.id = 'addPhotoButton';
-    addPhotoButton.textContent = 'Ajouter Une Photo';
-
-    overlayContent.appendChild(closeOverlayButton);
-    overlayContent.appendChild(h2);
-    overlayContent.appendChild(hr);
-    overlayContent.appendChild(cardsContainer);
-    overlayContent.appendChild(addPhotoButton);
-
-    overlay.appendChild(overlayContent);
-    document.body.appendChild(overlay);
-
-    fetchCategoriesAndPopulateSelect();
 }
+
 
 async function fetchCategoriesAndPopulateSelect() {
     try {
@@ -163,11 +138,12 @@ function filterWorks(categoryId) {
 document.addEventListener('DOMContentLoaded', () => {
     fetchWorks();
     fetchCategories();
-
     
 
     const loginSection = document.getElementById('loginOverlay');
     const loginButton = document.getElementById("loginButton");
+
+    
     
     function hidePageElements() {
         document.body.style.overflow = 'hidden';
@@ -242,18 +218,37 @@ document.addEventListener('DOMContentLoaded', () => {
     
         // Adding event listeners to edit mode buttons
         editBanner.addEventListener('click', function() {
-            const overlay = document.getElementById('overlay');
+            const overlay = document.getElementById('photoPicker');
             overlay.style.display = 'flex';
         });
     
         modifyButton.addEventListener('click', function() {
-            const overlay = document.getElementById('overlay');
+            const overlay = document.getElementById('photoPicker');
             overlay.style.display = 'flex';
         });
     
-        // Adding event listener to close overlay button
-        document.getElementById('closeOverlay').addEventListener('click', function() {
-            document.getElementById('overlay').style.display = 'none';
+        // Adding event listener to close the overlays
+
+        document.querySelectorAll(".overlay").forEach(function(element){
+            element.addEventListener('click', function(e) {
+                if(e.target == e.currentTarget) {
+                    document.getElementById('photoPicker').style.display = 'none';
+                    document.getElementById('photoUploader').style.display = 'none';
+                }
+            });
+        });
+
+        document.querySelector('#photoPicker .closeOverlay').addEventListener('click', function() {
+            document.getElementById('photoPicker').style.display = 'none';
+        });
+
+        document.querySelector('#photoUploader .closeOverlay').addEventListener('click', function() {
+            document.getElementById('photoUploader').style.display = 'none';
+        });
+
+        document.querySelector('#photoUploader .backButton').addEventListener('click', function() {
+            document.getElementById('photoUploader').style.display = 'none';
+            document.getElementById('photoPicker').style.display = 'flex';
         });
     
         // Updating login button
@@ -271,81 +266,65 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Si l'utilisateur est déjà connecté, activer le mode édition
+    const authToken = localStorage.getItem('authToken');
+    if (authToken) {
+        activateEditMode();
+    };
+    
     const addPhotoButton = document.getElementById('addPhotoButton');
     const overlayContent = document.getElementById('overlayContent');
-    const originalOverlayContent = overlayContent.innerHTML;
 
     addPhotoButton.addEventListener('click', () => {
-        overlayContent.innerHTML = `
-            <button type="button" id="backButton">Retour</button>
-            <h2>Ajouter Une Photo</h2>
-            <div id="dropArea">
-                <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
-                <p>Glissez vos photos ici</p>
-            </div>
-            <input type="text" id="photoTitle" placeholder="Titre de la photo">
-            <select id="categorySelect">
-                <option value="">Choisir une catégorie</option>
-                <!-- Ajoute les options de catégorie dynamiquement -->
-        </select>
-        <button type="button" id="uploadButton">Ajouter</button>
-    `;
+        document.getElementById('photoPicker').style.display = 'none';
+        document.getElementById('photoUploader').style.display = 'flex';
 
-    // Code pour remplir la liste déroulante des catégories (utilise fetchCategories ou stocke les catégories localement)
-    // ...
-
-    // Code pour gérer le retour au clic sur le bouton "Retour"
-    const backButton = document.getElementById('backButton');
-    backButton.addEventListener('click', () => {
-        window.location.reload();
-        overlayContent.innerHTML = ''; 
     });
+});
 
-    // Code pour gérer le téléversement des photos
-    const uploadButton = document.getElementById('uploadButton');
-    uploadButton.addEventListener('click', async () => {
-        const fileInput = document.createElement('input');
-        fileInput.type = 'file';
-        fileInput.accept = 'image/*';
-        fileInput.click();
-        
-        fileInput.addEventListener('change', async () => {
-            const file = fileInput.files[0];
-            const photoTitle = document.getElementById('photoTitle').value;
-            const categorySelect = document.getElementById('categorySelect');
-            const categoryId = categorySelect.value;
+async function handleFiles(files) {
+    // ADD CODE TO SHOW UPLOADED FILE IN FILE INPUT BOX HERE
+}
 
-            const formData = new FormData();
-            formData.append('image', file);
-            formData.append('title', photoTitle);
-            formData.append('categoryId', categoryId);
+async function uploadPhoto() {
+    const file = document.getElementById("fileElem").files[0];
+    const photoTitle = document.getElementById('photoTitle').value;
+    const categorySelect = document.getElementById('categorySelect');
+    const categoryId = categorySelect.value;
 
-            try {
-                const authToken = localStorage.getItem('authToken');
-                const response = await fetch(worksEndpoint, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${authToken}`, // Ajoutez le jeton JWT si nécessaire
-                    },
-                    body: formData
-                });
-                
-                if (response.ok) {
-                    const newWork = await response.json();
-                    console.log('Photo uploaded successfully:', newWork);
-                    window.location.reload(); // Refresh the page to reflect the newly uploaded photo
-                } else {
-                    console.error('Error uploading photo:', response.statusText);
-                }
-            } catch (error) {
-                console.error('Error uploading photo:', error);
-            }
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('title', photoTitle);
+    formData.append('category', categoryId);
+
+    try {
+        const authToken = localStorage.getItem('authToken');
+
+        let headers = new Headers();
+        headers.append('Authorization', `Bearer ${authToken}`);
+
+        const response = await fetch(worksEndpoint, {
+            method: 'POST',
+            headers: headers,
+            body: formData
         });
-    });
-});
-});
+        
+        if (response.ok) {
+            const newWork = await response.json();
+            console.log('Photo uploaded successfully:', newWork);
+            //window.location.reload(); // Refresh the page to reflect the newly uploaded photo
+        } else {
+            console.error('Error uploading photo:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error uploading photo:', error);
+    }
+}
     
     function createCardElement(work) {
+        const cardHolder = document.createElement('div');
+        cardHolder.classList.add('card-holder');
+
         const card = document.createElement('div');
         card.classList.add('card');
     
@@ -361,8 +340,8 @@ document.addEventListener('DOMContentLoaded', () => {
             deleteImage(work.id);
         });
         
-    
-        return card;
+        cardHolder.appendChild(card);
+        return cardHolder;
     }
 
     async function deleteImage(imageId) {
@@ -405,8 +384,4 @@ document.addEventListener('DOMContentLoaded', () => {
         loginSection.style.display = 'block';
     }
     
-    // Si l'utilisateur est déjà connecté, activer le mode édition
-    const authToken = localStorage.getItem('authToken');
-    if (authToken) {
-        activateEditMode();
-    };
+    

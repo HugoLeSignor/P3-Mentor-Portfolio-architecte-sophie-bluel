@@ -49,7 +49,7 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
-body {
+.container {
 	max-width: 1140px;
 	margin:auto;
 	font-family: 'Work Sans' ;
@@ -339,7 +339,7 @@ nav ul li a {
 	background: none;
 }
 
-#overlay {
+.overlay {
     position: fixed; 
     top: 0; 
     left: 0;
@@ -353,7 +353,7 @@ nav ul li a {
     
 }
 
-#overlayContent {
+.overlayContent {
 	display: flex;
 	flex-direction: column;
     background-color: #fff;
@@ -362,7 +362,7 @@ nav ul li a {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-#overlayContent h2 {
+.overlayContent h2 {
 	font-family: 'Work Sans';
 	margin-bottom: 1em;
 	align-self: center;
@@ -380,22 +380,29 @@ nav ul li a {
 	border: none;
 	background-color: #1D6154;
 	color: #fff;
-	margin-left: 35%;
-	margin-right: 35%;
+	margin: 0 auto;
 	max-width: 100%;
 	border-radius: 2em;
 	padding: 1em;
 	cursor: pointer;
 	font-family: 'Syne';
-
 }
 
 hr {
-	order: 1;
 	width: 100%;
 }
 
-#closeOverlay{
+.backButton{
+	padding: 0%;
+	cursor: pointer;
+	border: none;
+	background: none;
+	font-size: small;
+	justify-self: start;
+	align-self: start;
+}
+
+.closeOverlay{
 	padding: 0%;
 	cursor: pointer;
 	border: none;
@@ -405,9 +412,16 @@ hr {
 	align-self: end;
 }
 
-.card {
-	flex: 0 1 calc(20% - 5px);
+.card-holder {
+	flex: 0 1 20%;
+	margin-bottom: 20px;
 	position: relative;
+}
+
+.card {
+	position: relative;
+	margin: 0 auto;
+	width: min-content;
 }
 
 .card img {
@@ -416,14 +430,18 @@ hr {
 }
 
 #cardsContainer {
+	position: relative;
     display: flex;
+	max-width: 450px;
+	margin: 0 auto;
 	flex-wrap: wrap;
+	width: 100%;
 }
 
 .card i {
 	position: absolute; /* Positionne l'icône par rapport à la carte */
     top: 4px;
-    right: 60px; /* Ajuste la position horizontale de l'icône */
+    right: 4px; /* Ajuste la position horizontale de l'icône */
     padding: 4px; /* Ajoute un remplissage pour un meilleur aspect */
     background-color: #000000; /* Couleur de fond de l'icône */
 	border-radius: 20%;
