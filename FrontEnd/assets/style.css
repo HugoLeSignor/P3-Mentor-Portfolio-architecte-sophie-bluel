@@ -363,6 +363,8 @@ nav ul li a {
 }
 
 .overlayContent h2 {
+	font-weight: 100;
+	background-color: #fff;
 	font-family: 'Work Sans';
 	margin-bottom: 1em;
 	align-self: center;
@@ -393,6 +395,9 @@ hr {
 }
 
 .backButton{
+	max-width: 49%;
+	float: left;
+	display: block;
 	padding: 0%;
 	cursor: pointer;
 	border: none;
@@ -400,6 +405,21 @@ hr {
 	font-size: small;
 	justify-self: start;
 	align-self: start;
+}
+
+.floatRight {
+	float: right;
+	max-width: 49%;
+	display: block;
+}
+
+.floatContainer {
+	background-color: #fff;
+}
+
+.floatContainer::after {
+	content: ' ';
+	clear: both;
 }
 
 .closeOverlay{
@@ -430,6 +450,7 @@ hr {
 }
 
 #cardsContainer {
+	background-color: #fff;
 	position: relative;
     display: flex;
 	max-width: 450px;
@@ -450,39 +471,89 @@ hr {
 	font-size: 10px;
 }
 
-#backButton {
-	padding: 0%;
-	cursor: pointer;
-	border: none;
-	background: none;
-	font-size: small;
-	justify-self: end;
-	align-self: end;
-}
-
 #dropArea {
 	background: #E8F1F6;
 	display: flex;
 	flex-direction: column;
-	margin-top: 2em;
-	margin-bottom: 2em;
 	justify-content: center;
+	margin-bottom: 10px;
 
 }
 
 #fileElem {
+
 	background: #E8F1F6;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	flex-wrap: wrap;
-	width: 100%;
-	height: 100%;
 	
 }
 
-p {
+#icon {
+	cursor: pointer;
+	margin-top: 15px;
+	display: flex;
+	background-color: #E8F1F6;
+	color: #B9C5CC;
+	font-size: 100px;
+	justify-content: center;
 	
+}
+
+#photodrag {
+	font-family: 'Work Sans';
+	margin-top: 5px;
+	margin-bottom: 15px;
+	background-color: #E8F1F6;
 	display: flex;
 	justify-content: center;
+}
+
+#photoTitle {
+	padding: 10px;
+	border-style: none;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	margin-bottom: 1em;
+}
+
+#categorySelect {
+	padding: 10px;
+	border-style: none;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	margin-bottom: 10px;
+}
+
+#titleOverlay {
+	font-size: small;
+	font-weight: ;
+	font-family: 'Work Sans';
+	margin-bottom: 5px;
+}
+
+h5 {
+	font-family: 'Work Sans';
+	cursor: pointer;
+	display: flex;
+	width: 50%;
+	border-radius: 2em;
+	padding: 10px;
+	justify-content: center;
+	background-color: #CBD6DC;
+	color: #306685;
+	margin: 0 auto;
+}
+
+#uploadButton {
+	margin-top: 1em;
+	display: inline-flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	background-color: #1D6154;
+	color: #fff;
+	margin-left: 4em;
+	margin-right: 4em;
+	max-width: 100%;
+	border-radius: 2em;
+	padding: 1em;
+	cursor: pointer;
+	font-family: 'Syne';
 }

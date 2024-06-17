@@ -95,20 +95,29 @@
 		</div>
 		<div id="photoUploader" class="overlay" style="display: none;">
 			<div class="overlayContent">
-				<button type="button" class="backButton"><i class="fa-solid fa-arrow-left"></i></button>
-				<button type="button" class="closeOverlay"><i class="fa-solid fa-x"></i></button>
-				<h2>Ajouter Une Photo</h2>
-				<div id="dropArea">
-					<input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
-					<p>Glissez vos photos ici</p>
+				<div class="floatContainer">
+					<button type="button" class="backButton"><i class="fa-solid fa-arrow-left"></i></button>
+					<button type="button" class="closeOverlay floatRight"><i class="fa-solid fa-x"></i></button> 
 				</div>
-				<input type="text" id="photoTitle" placeholder="Titre de la photo">
+				<h2>Ajout photo</h2>
+				<div id="dropArea">
+					<label for="fileElem" style="display: block; width: 400px; height: 180px; background-color: #E8F1F6; cursor: pointer;">
+
+						<i id="icon" class="fa-regular fa-image"></i>
+						<h5>+ Ajouter photo</h5>
+						<p id="photodrag">jpg, png : 4mo max</p>
+					</label>
+					<input type="file" id="fileElem" name="fileElem" style="display:none;" multiple accept="image/*" onchange="handleFiles(this.files)">
+				</div>
+				<h3 id="titleOverlay">Titre</h3>
+				<input type="text" id="photoTitle" placeholder="">
+				<h3 id="titleOverlay">Catégorie</h3>
 				<select id="categorySelect">
-					<option value="">Choisir une catégorie</option>
+					<option value=""></option>
 					<!-- Ajoute les options de catégorie dynamiquement -->
 				</select>
 				<hr>
-				<button type="button" id="uploadButton" onclick="uploadPhoto()">Ajouter</button>
+				<button type="button" id="uploadButton" onclick="uploadPhoto()">Valider</button>
 			</div>
 		</div>
 	</body>
