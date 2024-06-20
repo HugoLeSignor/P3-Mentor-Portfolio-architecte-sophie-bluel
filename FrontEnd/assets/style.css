@@ -531,7 +531,7 @@ hr {
   background-color: #fff;
   position: relative;
   display: flex;
-  max-width: 450px;
+  min-width: 450px;
   margin: 0 auto;
   flex-wrap: wrap;
   width: 100%;
@@ -635,4 +635,21 @@ h5 {
 #legal {
 	background-color: #fff;
 	font-family: 'Work Sans';
+}
+
+.hide {
+  display: none !important;
+}
+
+.file-handler-label {
+
+}
+
+#img-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 134px;
+  margin: auto;
+
 }
