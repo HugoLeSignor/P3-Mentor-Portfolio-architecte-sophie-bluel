@@ -59,9 +59,11 @@ function renderWorks(works) {
   const gallery = document.getElementById("gallery");
   gallery.innerHTML = "";
 
+  
   works.forEach((work) => {
     const figure = document.createElement("figure");
-    figure.dataset.categoryId = work.category.name;
+    figure.dataset.categoryId = work.category.id;
+    figure.dataset.workId = work.id;
     const img = document.createElement("img");
     img.src = work.imageUrl;
     img.alt = work.title || "Titre non disponible";
@@ -93,6 +95,7 @@ function renderCategories(categories) {
   });
 }
 
+
 function populateSelect(categories) {
   const categoriesSelectBox = document.getElementById("categorySelect");
   while (categoriesSelectBox.children.length > 1) {
@@ -119,16 +122,28 @@ async function fetchCategoriesAndPopulateSelect() {
 
 // Fonction pour filtrer les travaux par catégorie
 function filterWorks(categoryId) {
-  // supprimer toutes les .hide
-  fetch(worksEndpoint)
-    .then((response) => response.json())
-    .then((works) => {
-      if (categoryId) {
-        works = works.filter((work) => work.categoryId === categoryId);
-      }
-      renderWorks(works);
+  console.log(categoryId)
+
+  if(!categoryId){
+    document.querySelectorAll(".gallery figure").forEach((item,i) => {
+      item.classList.remove('hide')
     })
-    .catch((error) => console.error("Erreur lors du filtrage :", error));
+  }
+  else{
+    // deletes all .hide
+    document.querySelectorAll(".gallery figure").forEach((item,i) => {
+            item.classList.add('hide')
+    })
+    document.querySelectorAll(".gallery figure").forEach((item,i) => {
+        const cat = item.dataset.categoryId
+        if(cat == categoryId) {
+          //console.log(cat)
+          //console.log(categoryId)
+          //console.log(cat == categoryId)
+          item.classList.remove('hide')
+        }
+    })
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -208,6 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Hiding filter container
     const filterContainer = document.getElementById("filter-container");
     filterContainer.style.display = "none";
+    filterWorks(null);
 
     // Adding event listeners to edit mode buttons
     editBanner.addEventListener("click", function () {
@@ -225,8 +241,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".overlay").forEach(function (element) {
       element.addEventListener("click", function (e) {
         if (e.target == e.currentTarget) {
-          document.getElementById("photoPicker").style.display = "none";
-          document.getElementById("photoUploader").style.display = "none";
+          closePhotoPickerModal();
+          closePhotoUploaderModal();
         }
       });
     });
@@ -234,19 +250,19 @@ document.addEventListener("DOMContentLoaded", () => {
     document
       .querySelector("#photoPicker .closeOverlay")
       .addEventListener("click", function () {
-        document.getElementById("photoPicker").style.display = "none";
+        closePhotoPickerModal();
       });
 
     document
       .querySelector("#photoUploader .closeOverlay")
       .addEventListener("click", function () {
-        document.getElementById("photoUploader").style.display = "none";
+        closePhotoUploaderModal();
       });
 
     document
       .querySelector("#photoUploader .backButton")
       .addEventListener("click", function () {
-        document.getElementById("photoUploader").style.display = "none";
+        closePhotoUploaderModal();
         document.getElementById("photoPicker").style.display = "flex";
       });
 
@@ -277,13 +293,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const addPhotoButton = document.getElementById("addPhotoButton");
 
   addPhotoButton.addEventListener("click", () => {
-    document.getElementById("photoPicker").style.display = "none";
+    closePhotoPickerModal();
     document.getElementById("photoUploader").style.display = "flex";
   });
 });
 
 async function handleFiles(files) {
+  const filePicker = document.getElementById("fileElem");
+  if(filePicker.files) {
+    const fileReader = new FileReader();
+    const imgPreview = document.getElementById("img-preview"); 
 
+
+
+    fileReader.onload = function(e){
+      imgPreview.setAttribute('src', e.target.result);
+      imgPreview.classList.remove("hide");
+      document.querySelectorAll("#filehandlerlabel *:not(#img-preview)").forEach((element) => {element.classList.add("hide");});
+    };
+
+    fileReader.readAsDataURL(filePicker.files[0]);
+  }
 }
 
 async function uploadPhoto() {
@@ -320,9 +350,21 @@ async function uploadPhoto() {
   }
 }
 
+function closePhotoPickerModal() {
+  document.getElementById("photoPicker").style.display = "none";
+}
+
+function closePhotoUploaderModal() {
+  document.getElementById("photoUploader").style.display = "none";
+  document.getElementById("img-preview").src = null;
+  document.getElementById("img-preview").classList.add("hide");
+  document.getElementById("fileElem").value = null;
+}
+
 function createCardElement(work) {
   const cardHolder = document.createElement("div");
   cardHolder.classList.add("card-holder");
+  cardHolder.dataset.workId = work.id;
 
   const card = document.createElement("div");
   card.classList.add("card");
@@ -363,6 +405,19 @@ async function deleteImage(imageId) {
         }
       );
       if (response.ok) {
+        document.querySelectorAll(".gallery figure").forEach((item,i) => {
+          const workId = item.dataset.workId
+          if(workId == imageId) {
+            item.remove();
+          }
+        })
+        document.querySelectorAll(".card-holder").forEach((item,i) => {
+          const workId = item.dataset.workId
+          if(workId == imageId) {
+            item.remove();
+          }
+        })
+        closePhotoPickerModal();
         // Suppression réussie, peut-être effectuer des actions supplémentaires comme actualiser l'interface utilisateur, etc.
         console.log("Image supprimée avec succès");
       } else {
