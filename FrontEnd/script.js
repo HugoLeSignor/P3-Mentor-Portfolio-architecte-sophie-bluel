@@ -342,9 +342,28 @@ async function uploadPhoto() {
     if (response.ok) {
       const newWork = await response.json();
       console.log("Photo uploaded successfully:", newWork);
+      const cardsContainer = document.getElementById("cardsContainer");
+      cardsContainer.appendChild(createCardElement(newWork));
+      const gallery = document.getElementById("gallery");
+      const figure = document.createElement("figure");
+      figure.dataset.categoryId = newWork.categoryId;
+      figure.dataset.workId = newWork.id;
+      const img = document.createElement("img");
+      img.src = newWork.imageUrl;
+      img.alt = newWork.title || "Titre non disponible";
+
+      const figcaption = document.createElement("figcaption");
+      figcaption.textContent = newWork.title || "Titre non disponible";
+
+      figure.appendChild(img);
+      figure.appendChild(figcaption);
+      gallery.appendChild(figure);
+
+      closePhotoUploaderModal()
     } else {
       console.error("Error uploading photo:", response.statusText);
     }
+
   } catch (error) {
     console.error("Error uploading photo:", error);
   }
@@ -417,7 +436,8 @@ async function deleteImage(imageId) {
             item.remove();
           }
         })
-        closePhotoPickerModal();
+        
+
         // Suppression réussie, peut-être effectuer des actions supplémentaires comme actualiser l'interface utilisateur, etc.
         console.log("Image supprimée avec succès");
       } else {
